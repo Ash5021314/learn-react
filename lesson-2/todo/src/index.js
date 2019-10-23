@@ -1,28 +1,24 @@
-// console.log("aaa");
-import React, { useState } from 'react'
-import ReactDom from 'react-dom'
+import React from 'react';
+import ReactDom from 'react-dom';
+import AppHeader from './components/app-header';
+import SearchPannel from './components/search-pannel';
+import TodoList from './components/todo-list';
+
+
 
 const App = () => {
-
-    const abc = [1, 2]
-    let [barv, hajox] = abc
-
-    console.log(barv)
-    console.log(hajox)
-    const [name, setName] = useState('')
-    const [showName, setShowName] = useState(true)
-    console.log(name)
+    const todoData = [
+        {label: 'Drink Cofee', important: false},
+        {label: 'Make awesome App', important: true},
+        {label: 'Have a lunch', important: false},
+    ];
     return (
-        <>
-            <input value={name} onChange={(e) => setName(e.target.value)} />
-            <input type='checkbox' checked={showName} onChange={(e) => setShowName(e.target.checked)} />
-            <br />
-            {showName && (
-                <div>My name is {name}</div>
-            )}
-        </>
+        <div>
+            <AppHeader />
+            <SearchPannel />
+            <TodoList  todos = {todoData}/>
+        </div>
     )
-
 }
 
 ReactDom.render(<App />, document.getElementById('root'))
