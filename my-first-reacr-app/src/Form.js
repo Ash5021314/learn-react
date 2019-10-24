@@ -1,6 +1,7 @@
 import React from 'react';
 import useForm from './useForm';
 import useSignUpForm from './CustomHooks';
+import Style from './Style.css'
 
 let a = new Array();
 const Form = () => {
@@ -16,9 +17,33 @@ const Form = () => {
   const { values, handleChange, handleSubmit } = useForm(login);
 
   const signup = () => {
-    alert(`User created!
-    Name: ${inputs.firstname} ${inputs.password}
-    Email: ${inputs.email}`)
+    let onlyLetters = /^[a-zA-Z]*$/;
+    let mailReg = /^[^@]+@[^@]+$/
+    if (inputs.firstname == "" || inputs.lastName == "" || inputs.email == "" || inputs.password1 == '' || inputs.password2 == "") {
+      alert(`Please Fill in all the fields`);
+      return
+    }
+    else if (inputs.password !== inputs.password2) {
+      alert("Password must be the same with re-password");
+      return
+    }
+    else if (inputs.password.length <= 7) {
+      alert("Password must be more than 7 characters");
+      return
+    }
+    else if (inputs.password.match(onlyLetters)) {
+      alert("you must enter at least one character except letters");
+      return
+    }
+    else if (!inputs.email.match(mailReg)) {
+      alert("please enter valid email");
+      return
+    }
+    else {
+      alert(`User created!
+      Name: ${inputs.firstname} ${inputs.password}
+      Email: ${inputs.email}`)
+    }
 
     a.push(inputs.email, inputs.password);
     // console.log(a)
@@ -26,40 +51,24 @@ const Form = () => {
   const { inputs, handleInputChange, handleInputSubmit } = useSignUpForm(signup);
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className="loginForm" onSubmit={handleSubmit}>
         <div className="field">
-          <label className="label">Email address</label>
-          <input type='email' name='email' onChange={handleChange} value={values.email} required />
-
+          <input type='email' autoComplete="off" placeholder="Email Address" name='email' onChange={handleChange} value={values.email} />
         </div>
         <div className="field">
-          <label className="label">Password</label>
-          <input type='password' name='password' onChange={handleChange} value={values.password} required />
+          <input type='password' placeholder="password" name='password' onChange={handleChange} value={values.password} />
         </div>
         <button type="submit" className="button is-block is-info is-fullwidth">Login</button>
       </form>
 
+      <form className="regForm" onSubmit={handleInputSubmit} >
 
-      <form onSubmit={handleInputSubmit} >
-        <div>
-          <label>First Name</label>
-          <input type='text' name='firstname' onChange={handleInputChange} value={inputs.firstName} required />
-          <label>Last Name</label>
-          <input type='text' name='lastname' onChange={handleInputChange} value={inputs.lastName} required />
-        </div>
-        <div>
-          <label>Email Address</label>
-          <input type='email' name='email' onChange={handleInputChange} value={inputs.email} required />
-        </div>
-        <div>
-          <label>Password</label>
-          <input type='password' name='password' onChange={handleInputChange} value={inputs.password1} required />
-        </div>
-        <div>
-          <label>Re-assword</label>
-          <input type='password' name='password2' onChange={handleInputChange} value={inputs.password2} required />
-        </div>
-        <button type='submit'>Sign In</button>
+        <input type='text' autoComplete="off" placeholder="First Name" name='firstname' onChange={handleInputChange} value={inputs.firstName} />
+        <input type='text' autoComplete="off" placeholder="Last Name" name='lastname' onChange={handleInputChange} value={inputs.lastName} />
+        <input type='text' autoComplete="off" placeholder="Email Address" name='email' onChange={handleInputChange} value={inputs.email} />
+        <input type='password' placeholder="password" name='password' onChange={handleInputChange} value={inputs.password1} />
+        <input type='password' placeholder="re-password" name='password2' onChange={handleInputChange} value={inputs.password2} />
+        <button type='submit' >Sign In</button>
       </form>
     </>
   );

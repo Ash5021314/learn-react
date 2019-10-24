@@ -6,6 +6,7 @@ const useSignUpForm = (callback) => {
             event.preventDefault();
         }
         callback();
+
     }
     const handleInputChange = (event) => {
         event.persist();
@@ -14,10 +15,12 @@ const useSignUpForm = (callback) => {
                 event.target.value
         }));
     }
+
     return {
         handleInputSubmit,
         handleInputChange,
         inputs
     };
+
 }
 export default useSignUpForm;
