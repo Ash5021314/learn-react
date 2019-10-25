@@ -11,8 +11,8 @@ const useSignUpForm = (callback) => {
     const handleInputChange = (event) => {
         event.persist();
         setInputs(inputs => ({
-            ...inputs, [event.target.name]:
-                event.target.value
+            ...inputs,
+            [event.target.name]: event.target.value
         }));
     }
 

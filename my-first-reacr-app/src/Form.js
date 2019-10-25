@@ -3,18 +3,12 @@ import useForm from './useForm';
 import useSignUpForm from './CustomHooks';
 import Style from './Style.css'
 
-let a = new Array();
-const Form = () => {
-  function login() {
-    if (values.email === inputs.email && values.password === inputs.password) {
-      alert("aaa");
-    }
-    else {
-      alert("bbb")
-    }
+let registeredUsers = new Array();
 
-  }
-  const { values, handleChange, handleSubmit } = useForm(login);
+let userLogEmail;
+let userLogPassword;
+const Form = () => {
+
 
   const signup = () => {
     let onlyLetters = /^[a-zA-Z]*$/;
@@ -44,11 +38,36 @@ const Form = () => {
       Name: ${inputs.firstname} ${inputs.password}
       Email: ${inputs.email}`)
     }
+    registeredUsers.push({
+      email: inputs.email,
+      password: inputs.password
+    });
 
-    a.push(inputs.email, inputs.password);
-    // console.log(a)
+    // userLogEmail = registeredUsers.map(({ userLogin }) => userLogin)
+    // userLogPassword = registeredUsers.map(({ userPassword }) => userPassword)
+    // console.log(`loginReg: ${userLogEmail}
+    //               passwordReg: ${userLogPassword}
+    // `)
+    console.log(registeredUsers)
   }
   const { inputs, handleInputChange, handleInputSubmit } = useSignUpForm(signup);
+
+  function login() {
+    // console.log(values.email)
+    // console.log(registeredUsers.filter(({ mail, password }) => mail == inputs.mail && password == inputs.password), inputs)
+    if (registeredUsers.filter(({ email, password }) => {
+      return email == values.email && password == values.password
+    }).length) {
+      alert("Login is successful");
+    }
+    else {
+      console.log(`loginlogin: ${userLogEmail}
+                  passwordlogin: ${userLogPassword}
+    `)
+      alert("wrong email or password")
+    }
+  }
+  const { values, handleChange, handleSubmit } = useForm(login);
   return (
     <>
       <form className="loginForm" onSubmit={handleSubmit}>
