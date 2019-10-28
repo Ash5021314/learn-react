@@ -1,0 +1,10 @@
+.addItem {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+    padding: 5px 20px;
+    border: none;
+    background: cadetblue;
+    border-radius: 5px;
+    color: white;
+}
