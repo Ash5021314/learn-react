@@ -1,16 +1,16 @@
-import React, {Component, useState} from 'react'
+import React from 'react'
 
 import './todo-list-item.css'
 
-const TodoListItem = ({label, onDeleted}) => {
-  const [done, setDone] = useState(false)
-  const [important, setImportant] = useState(false)
-  const handleChanges = () => {
-    setDone(!done)
-  }
-  const handleImportant = () => {
-    setImportant(!important)
-  }
+const TodoListItem = ({label, onDeleted, onToggleImportant, onToggleDone, done, important}) => {
+  // const [done, setDone] = useState(false)
+  // const [important, setImportant] = useState(false)
+  // const handleChanges = () => {
+  //   setDone(!done)
+  // }
+  // const handleImportant = () => {
+  //   setImportant(!important)
+  // }
 
   let classNames = 'todo-list-item'
   if (important) {
@@ -23,10 +23,11 @@ const TodoListItem = ({label, onDeleted}) => {
     <span className={classNames}>
       <span
         className="todo-list-item-label "
-        onClick={handleChanges}>{label}</span>
+        onClick={onToggleDone}>{label}
+      </span>
 
       <button type="button"
-              onClick={handleImportant} className="btn btn-outline-success btn-sm float-right">
+              onClick={onToggleImportant} className="btn btn-outline-success btn-sm float-right">
         <i className="fa fa-exclamation"/>
       </button>
 
@@ -39,49 +40,6 @@ const TodoListItem = ({label, onDeleted}) => {
     </span>
   )
 }
-
-
-// class TodoListItem extends Component {
-//   state = {
-//     done: false
-//   };
-//   onlabelClick = () => {
-//     this.setState({
-//       done: true
-//     });
-//   };
-
-//   render() {
-
-//     const { label, important = false } = this.props;
-//     const { done } = this.state;
-//     let classNames = 'todo-list-item';
-//     // if (important) {
-//     //   classNames += ' important';
-//     // }
-//     if (done) {
-//       classNames += ' done';
-//     }
-//     return (
-//       <span className={classNames} >
-//         <span
-//           className="todo-list-item-label "
-//           onClick={this.onlabelClick}>{label}</span>
-
-//         <button type="button"
-//           className="btn btn-outline-success btn-sm float-right">
-//           <i className="fa fa-exclamation"></i>
-//         </button>
-
-//         <button type="button"
-//           className="btn btn-outline-danger btn-sm float-right"
-//         >
-//           <i className="fa fa-trash-o"></i>
-//         </button>
-//       </span>
-//     );
-//   }
-// }
 
 
 export default TodoListItem
